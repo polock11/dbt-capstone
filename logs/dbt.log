@@ -1,0 +1,113 @@
+[0m14:19:49.427964 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10cada270>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dccbb10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dccb9d0>]}
+
+
+============================== 14:19:49.431104 | 2e5fc419-9bff-44f7-bfe9-33ef79f637f6 ==============================
+[0m14:19:49.431104 [info ] [MainThread]: Running with dbt=1.11.16
+[0m14:19:49.431447 [debug] [MainThread]: running dbt with arguments {'log_path': 'logs', 'no_print': 'None', 'static_parser': 'True', 'indirect_selection': 'eager', 'write_json': 'True', 'version_check': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'invocation_command': 'dbt init', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'log_cache_events': 'False', 'use_colors': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'partial_parse': 'True', 'fail_fast': 'False', 'profiles_dir': '/Users/shpo/.dbt', 'debug': 'False', 'cache_selected_only': 'False', 'printer_width': '80', 'log_format': 'default', 'target_path': 'None', 'introspect': 'True'}
+[0m14:21:46.088389 [debug] [MainThread]: Starter project path: /Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/include/starter_project
+[0m14:21:46.096204 [info ] [MainThread]: 
+Your new dbt project "clear" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m14:21:46.096536 [info ] [MainThread]: Setting up your profile.
+[0m14:22:30.044250 [error] [MainThread]: Encountered an error:
+
+[0m14:22:30.050115 [error] [MainThread]: Traceback (most recent call last):
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/cli/requires.py", line 187, in wrapper
+    result, success = func(*args, **kwargs)
+                      ~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/cli/requires.py", line 133, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/cli/main.py", line 488, in init
+    results = task.run()
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/task/init.py", line 349, in run
+    self.setup_profile(profile_name)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/task/init.py", line 262, in setup_profile
+    adapter = self.ask_for_adapter_choice()
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/task/init.py", line 243, in ask_for_adapter_choice
+    numeric_choice = click.prompt(prompt_msg, type=click.INT)
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/click/termui.py", line 218, in prompt
+    value = prompt_func(prompt)
+  File "/Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/click/termui.py", line 201, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m14:22:30.054069 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": false, "command_wall_clock_time": 160.67226, "process_in_blocks": "0", "process_kernel_time": 0.159561, "process_mem_max_rss": "114704384", "process_out_blocks": "0", "process_user_time": 0.832501}
+[0m14:22:30.054560 [debug] [MainThread]: Command `dbt init` failed at 14:22:30.054455 after 160.67 seconds
+[0m14:22:30.054913 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dd96060>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dde60f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dc1acf0>]}
+[0m14:22:30.055472 [debug] [MainThread]: Flushing usage events
+[0m14:22:30.549554 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m14:22:46.747553 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108972270>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109b63b10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109b639d0>]}
+
+
+============================== 14:22:46.750802 | 3b1e5707-3cb1-4562-abcd-107cad9d642a ==============================
+[0m14:22:46.750802 [info ] [MainThread]: Running with dbt=1.11.16
+[0m14:22:46.751151 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'indirect_selection': 'eager', 'no_print': 'None', 'cache_selected_only': 'False', 'log_path': 'logs', 'warn_error': 'None', 'debug': 'False', 'log_format': 'default', 'use_colors': 'True', 'printer_width': '80', 'use_experimental_parser': 'False', 'fail_fast': 'False', 'introspect': 'True', 'empty': 'None', 'version_check': 'True', 'partial_parse': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_cache_events': 'False', 'quiet': 'False', 'profiles_dir': '/Users/shpo/.dbt', 'send_anonymous_usage_stats': 'True', 'invocation_command': 'dbt init', 'static_parser': 'True', 'target_path': 'None'}
+[0m14:23:26.744632 [debug] [MainThread]: Starter project path: /Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/include/starter_project
+[0m14:23:26.753342 [info ] [MainThread]: 
+Your new dbt project "airstats" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m14:23:26.753853 [info ] [MainThread]: Setting up your profile.
+[0m14:23:37.245873 [debug] [MainThread]: Snowflake adapter: Setting snowflake.connector to ERROR (file logging only)
+[0m14:23:37.246208 [debug] [MainThread]: Snowflake adapter: Setting botocore to ERROR (file logging only)
+[0m14:23:37.246396 [debug] [MainThread]: Snowflake adapter: Setting boto3 to ERROR (file logging only)
+[0m14:25:13.680637 [info ] [MainThread]: Profile airstats written to /Users/shpo/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m14:25:13.684620 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 146.93065, "process_in_blocks": "0", "process_kernel_time": 0.195663, "process_mem_max_rss": "138461184", "process_out_blocks": "0", "process_user_time": 1.008937}
+[0m14:25:13.685699 [debug] [MainThread]: Command `dbt init` succeeded at 14:25:13.685539 after 146.93 seconds
+[0m14:25:13.686012 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b76b490>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1099d6330>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b71fdf0>]}
+[0m14:25:13.686283 [debug] [MainThread]: Flushing usage events
+[0m14:25:14.213869 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m14:39:17.573360 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10aac6270>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bcb7b10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bcb79d0>]}
+
+
+============================== 14:39:17.577000 | 819af61c-4398-4698-bedd-209cc6965251 ==============================
+[0m14:39:17.577000 [info ] [MainThread]: Running with dbt=1.11.16
+[0m14:39:17.577349 [debug] [MainThread]: running dbt with arguments {'use_experimental_parser': 'False', 'debug': 'False', 'version_check': 'True', 'log_format': 'default', 'indirect_selection': 'eager', 'invocation_command': 'dbt init --skip-profile-setup airstat', 'static_parser': 'True', 'write_json': 'True', 'partial_parse': 'True', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'send_anonymous_usage_stats': 'True', 'fail_fast': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'use_colors': 'True', 'warn_error': 'None', 'log_cache_events': 'False', 'profiles_dir': '/Users/shpo/.dbt', 'empty': 'None', 'log_path': 'logs', 'no_print': 'None'}
+[0m14:39:17.588293 [debug] [MainThread]: Starter project path: /Users/shpo/Documents/code/dbt-capstone/dbt-capstone/.venv/lib/python3.13/site-packages/dbt/include/starter_project
+[0m14:39:17.594876 [info ] [MainThread]: 
+Your new dbt project "airstat" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m14:39:17.597325 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 0.06949992, "process_in_blocks": "0", "process_kernel_time": 0.142937, "process_mem_max_rss": "113606656", "process_out_blocks": "0", "process_user_time": 0.804374}
+[0m14:39:17.597640 [debug] [MainThread]: Command `dbt init` succeeded at 14:39:17.597573 after 0.07 seconds
+[0m14:39:17.597850 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bd78d60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bcff530>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bc0a030>]}
+[0m14:39:17.598058 [debug] [MainThread]: Flushing usage events
+[0m14:39:18.051578 [debug] [MainThread]: An error was encountered while trying to flush usage events
