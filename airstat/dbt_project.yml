@@ -30,7 +30,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  airstat:
+  airstats:
     # Config indicated by + and applies to all files under models/example/
-    example:
+    bronze:
       +materialized: view
+      +schema: bronze
+    sliver:
+      +materialized: table
+      +schema: sliver
