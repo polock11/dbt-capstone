@@ -1,0 +1,31 @@
+snapshots:
+  - name: scd_silver_runways
+    description: "Slowly changing dimension (type 2) history of silver_runways. Uses the check strategy on runway_id: a new row is written whenever a tracked column changes. Each row carries dbt_valid_from and dbt_valid_to to show when that version was current."
+    relation: ref('silver_runways')
+    config:
+      schema: snapshots
+      unique_key: runway_id
+      strategy: check
+      check_cols:
+        - runway_id
+        - airport_ident
+        - runway_length_ft
+        - runway_width_ft
+        - runway_surface
+        - runway_lighted
+        - runway_closed
+    columns:
+      - name: runway_id
+        description: "Runway identifier. Snapshot unique key."
+      - name: airport_ident
+        description: "Airport the runway belongs to at this version."
+      - name: runway_length_ft
+        description: "Runway length in feet at this version."
+      - name: runway_width_ft
+        description: "Runway width in feet at this version."
+      - name: runway_surface
+        description: "Runway surface type at this version."
+      - name: runway_lighted
+        description: "Whether the runway is lighted at this version."
+      - name: runway_closed
+        description: "Whether the runway is closed at this version."

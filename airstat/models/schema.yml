@@ -1,0 +1,168 @@
+version: 2
+
+models:
+  - name: src_airport
+    description: "Bronze staging for raw airport data. Renames source columns to the silver naming scheme. Ephemeral, so it compiles into downstream models as a CTE and is not materialized."
+    columns:
+      - name: airport_ident
+        description: "Airport identifier code (source column `ident`)."
+      - name: airport_type
+        description: "Airport category (source column `type`)."
+      - name: airport_name
+        description: "Airport name (source column `name`)."
+      - name: airport_lat
+        description: "Latitude in decimal degrees (source column `latitude_deg`)."
+      - name: airport_long
+        description: "Longitude in decimal degrees (source column `longitude_deg`)."
+      - name: continent
+        description: "Two-letter continent code, passed through from the source."
+      - name: iso_country
+        description: "ISO country code, passed through from the source."
+      - name: iso_region
+        description: "ISO region code, passed through from the source."
+
+  - name: src_airport_comments
+    description: "Bronze staging for raw airport comments. Renames source columns to the silver naming scheme. Ephemeral."
+    columns:
+      - name: comment_id
+        description: "Comment identifier (source column `id`)."
+      - name: airport_ident
+        description: "Airport the comment belongs to."
+      - name: comment_timestamp
+        description: "When the comment was posted (source column `date`)."
+      - name: member_nickname
+        description: "Commenter nickname, passed through from the source. May be null."
+      - name: comment_subject
+        description: "Comment subject line (source column `subject`)."
+      - name: comment_body
+        description: "Comment text (source column `body`). May be null."
+
+  - name: src_runways
+    description: "Bronze staging for raw runway data. Renames source columns to the silver naming scheme. Ephemeral."
+    columns:
+      - name: runway_id
+        description: "Runway identifier (source column `id`)."
+      - name: airport_ident
+        description: "Airport the runway belongs to."
+      - name: runway_length_ft
+        description: "Runway length in feet (source column `length_ft`)."
+      - name: runway_width_ft
+        description: "Runway width in feet (source column `width_ft`)."
+      - name: runway_surface
+        description: "Runway surface type, passed through from the source. May be null."
+      - name: runway_lighted
+        description: "Whether the runway is lighted, as provided by the source (source column `lighted`)."
+      - name: runway_closed
+        description: "Whether the runway is closed, as provided by the source (source column `closed`)."
+
+  - name: silver_airports
+    description: "Cleaned airport reference data, one row per airport. Built from src_airport and stamped with silver_created_at. Snapshotted by scd_silver_airports."
+    columns:
+      - name: airport_ident
+        description: "Airport identifier code. Natural key used by the snapshot."
+        data_tests:
+          - unique
+          - not_null
+      - name: airport_type
+        description: "Airport size/category as provided by the source."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - closed
+                  - heliport
+                  - seaplane_base
+                  - balloonport
+                  - medium_airport
+                  - large_airport
+                  - small_airport
+      - name: airport_name
+        description: "Airport name."
+        data_tests:
+          - not_null
+      - name: airport_lat
+        description: "Latitude in decimal degrees."
+        data_tests:
+          - not_null
+      - name: airport_long
+        description: "Longitude in decimal degrees."
+        data_tests:
+          - not_null
+      - name: continent
+        description: "Two-letter continent code."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['AF', 'AN', 'AS', 'EU', 'NA', 'OC', 'SA']
+      - name: iso_country
+        description: "ISO country code, as provided by the source."
+      - name: iso_region
+        description: "ISO region code, as provided by the source."
+      - name: silver_created_at
+        description: "Timestamp the silver row was built."
+        data_tests:
+          - not_null
+
+  - name: silver_airport_comments
+    description: "Airport comments with comment bodies present and nicknames defaulted to '__UNKNOWN__'. Incremental on comment_id: each run loads only comments with an id greater than the current maximum. Rows with a null comment_body are dropped."
+    columns:
+      - name: comment_id
+        description: "Unique comment identifier and incremental unique key."
+        data_tests:
+          - unique
+          - not_null
+      - name: airport_ident
+        description: "Airport the comment belongs to. Not every value matches silver_airports.airport_ident, so no relationships test is enforced on this column."
+        data_tests:
+          - not_null
+      - name: comment_timestamp
+        description: "When the comment was posted."
+        data_tests:
+          - not_null
+      - name: member_nickname
+        description: "Commenter nickname; '__UNKNOWN__' when missing in the source."
+        data_tests:
+          - not_null
+      - name: comment_subject
+        description: "Comment subject line. May be null."
+      - name: comment_body
+        description: "Comment text. Rows with null bodies are filtered out."
+        data_tests:
+          - not_null
+      - name: loaded_at
+        description: "Timestamp the silver row was loaded."
+        data_tests:
+          - not_null
+
+  - name: silver_runways
+    description: "Runway data, one row per runway, linked to its airport. Built from src_runways and stamped with silver_created_at. Snapshotted by scd_silver_runways."
+    columns:
+      - name: runway_id
+        description: "Unique runway identifier. Natural key used by the snapshot."
+        data_tests:
+          - unique
+          - not_null
+      - name: airport_ident
+        description: "Airport the runway belongs to."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_airports')
+                field: airport_ident
+      - name: runway_length_ft
+        description: "Runway length in feet."
+      - name: runway_width_ft
+        description: "Runway width in feet."
+      - name: runway_surface
+        description: "Runway surface type; '__UNKNOWN__' when missing in the source."
+        data_tests:
+          - not_null
+      - name: runway_lighted
+        description: "Whether the runway is lighted, as provided by the source."
+      - name: runway_closed
+        description: "Whether the runway is closed, as provided by the source."
+      - name: silver_created_at
+        description: "Timestamp the silver row was built."
+        data_tests:
+          - not_null

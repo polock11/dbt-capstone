@@ -5,5 +5,5 @@ WITH s_airports AS (
 
 SELECT
     *,
-    CURRENT_TIMESTAMP() AS created_at
+    CURRENT_TIMESTAMP() AS silver_created_at
 FROM s_airports

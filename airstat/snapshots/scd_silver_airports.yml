@@ -1,0 +1,35 @@
+
+snapshots:
+  - name: scd_silver_airports
+    description: "Slowly changing dimension (type 2) history of silver_airports. Uses the check strategy on airport_ident: a new row is written whenever a tracked column changes. Each row carries dbt_valid_from and dbt_valid_to to show when that version was current."
+    relation: ref('silver_airports')
+    config:
+      schema: snapshots
+      unique_key: airport_ident
+      strategy: check
+      check_cols:
+        - airport_ident
+        - airport_type
+        - airport_name
+        - airport_lat
+        - airport_long
+        - continent
+        - iso_country
+        - iso_region
+    columns:
+      - name: airport_ident
+        description: "Airport identifier code. Snapshot unique key."
+      - name: airport_type
+        description: "Airport category at this version."
+      - name: airport_name
+        description: "Airport name at this version."
+      - name: airport_lat
+        description: "Latitude in decimal degrees at this version."
+      - name: airport_long
+        description: "Longitude in decimal degrees at this version."
+      - name: continent
+        description: "Two-letter continent code at this version."
+      - name: iso_country
+        description: "ISO country code at this version."
+      - name: iso_region
+        description: "ISO region code at this version."

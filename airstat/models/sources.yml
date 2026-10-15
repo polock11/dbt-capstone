@@ -2,14 +2,63 @@ version: 2
 
 sources:
   - name: airstats
+    description: "Raw airport data loaded into the RAW schema. Read-only from dbt's perspective; the bronze models rename and pass these tables through."
     schema: raw
     tables:
       - name: raw_airports
         identifier: airports
+        description: "Airport reference data, one row per airport (from the airports dataset)."
+        columns:
+          - name: ident
+            description: "Airport identifier code. Becomes airport_ident in src_airport."
+          - name: type
+            description: "Airport category, e.g. small_airport or heliport."
+          - name: name
+            description: "Airport name."
+          - name: latitude_deg
+            description: "Latitude in decimal degrees."
+          - name: longitude_deg
+            description: "Longitude in decimal degrees."
+          - name: continent
+            description: "Two-letter continent code."
+          - name: iso_country
+            description: "ISO country code."
+          - name: iso_region
+            description: "ISO region code."
       - name: raw_airport_comments
         identifier: airport_comments
+        description: "User comments on airports, one row per comment."
+        columns:
+          - name: id
+            description: "Comment identifier. Becomes comment_id in src_airport_comments."
+          - name: airport_ident
+            description: "Airport the comment is about."
+          - name: date
+            description: "When the comment was posted."
+          - name: member_nickname
+            description: "Commenter nickname. May be null."
+          - name: subject
+            description: "Comment subject line."
+          - name: body
+            description: "Comment text. May be null."
       - name: raw_runways
         identifier: runways
+        description: "Runway data, one row per runway."
+        columns:
+          - name: id
+            description: "Runway identifier. Becomes runway_id in src_runways."
+          - name: airport_ident
+            description: "Airport the runway belongs to."
+          - name: length_ft
+            description: "Runway length in feet."
+          - name: width_ft
+            description: "Runway width in feet."
+          - name: surface
+            description: "Runway surface type. May be null."
+          - name: lighted
+            description: "Whether the runway is lighted."
+          - name: closed
+            description: "Whether the runway is closed."
         # config:
         #   loaded_at_field: date
         #   freshness:
